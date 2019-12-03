@@ -1,4 +1,10 @@
 <?php
+// required headers
+header("Access-Control-Allow-Origin: http://localhost/AdReviewBack/");
+header("Content-Type: application/json; charset=UTF-8");
+header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+header("Access-Control-Allow-Methods: POST, GET");
+header("Access-Control-Allow-Headers: {$_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']}");
 
 include '../dataConfig.php';
 include '../Classes/User.php';
@@ -11,39 +17,4 @@ $user->id = $data;
 $fetchedCompany = $user->read();
 echo ($fetchedCompany);
 
-
-// $stmt = $user->read();
-
-// $num = $stmt->rowCount();
-
-// if($num > 0) {
-//     // Users array
-//     $users_arr = [];
-//     $users_arr["user"]=array();
-    
-//     // Retrieve user_registration table data
-//     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-//         extract($row);
-
-//         $user_object = array(
-//             "id" => $id,
-//             "company_name" => $company_name,           
-//             "password" => $password
-//         );
-
-//         array_push($users_arr["user"], $user_object);
-//     }
-
-//     // Set response - 200
-//     http_response_code(200);
-    
-//     // Data in json format
-//     echo json_encode($users_arr);
-// }
-// else {
-//     // Set response - 404
-//     http_response_code(200);
-    
-//     // Notify user no users
-//     echo json_encode(array("message" => "No users found."));
-// }
+?>
