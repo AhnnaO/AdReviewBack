@@ -7,6 +7,7 @@ class User {
     private $table_name1 = "user";
 
     // other user properties
+    public $id;
     public $company_name;
     public $password;
 
@@ -19,10 +20,23 @@ class User {
 
     // read users
     public function read() {
-        $query = "SELECT * FROM " . $this->table_name1;
+        $query = "SELECT * FROM " . $this->table_name1 .
+        " WHERE id = :id";
         $stmt = $this->conn->prepare($query);
-        $stmt->execute();
-        return $stmt;
+        $stmt->execute(
+            [
+                ":id" => $this->id
+            ]
+        );
+        $listCompany = [];
+        while($row = $stmt->fetch(PDO::FETCH_OBJ)) {
+            array_push($listCompany, [
+                "id" => $row->id,
+                "company_name" => $row->company_name,
+                "password" => $row->password
+            ]);
+        }
+        return json_encode($listCompany);
     }
 
     // create users
