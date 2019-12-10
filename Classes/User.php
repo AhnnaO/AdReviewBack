@@ -18,26 +18,38 @@ class User {
         $this->conn = $db;
     }
 
-    // read users
+    // read users with matching company_name and password
     public function read() {
         $query = "SELECT * FROM " . $this->table_name1 .
-        " WHERE id = :id";
+        " WHERE company_name LIKE :company_name AND password = :password";
         $stmt = $this->conn->prepare($query);
         $stmt->execute(
             [
-                ":id" => $this->id
+                ":company_name" => $this->company_name,
+                ":password" => $this->password
             ]
         );
+    
         $listCompany = [];
         while($row = $stmt->fetch(PDO::FETCH_OBJ)) {
             array_push($listCompany, [
                 "id" => $row->id,
                 "company_name" => $row->company_name,
-                "password" => $row->password
+                // "password" => $row->password
             ]);
         }
         return json_encode($listCompany);
     }
+
+    // public function add_session() {
+    //     $_SESSION["company_name"] = $this->find_user()["company_name"];
+    //     $_SESSION["password"] = $this->find_user()["password"];
+    //     if($this->find_user()["admin"] == true ){
+    //         $_SESSION["user"] = "admin";
+    //     } else{
+    //         $_SESSION["user"] = "standard";
+    //     }
+    // }
 
     // create users
     function create() {

@@ -11,10 +11,11 @@ include '../Classes/User.php';
 
 $database = new Database();
 $db = $database->getConnection();
-$data = $_GET['id'];
+$data = $_GET['company_name'];
+$data2 = $_GET['password'];
 $user =  new User($db);
-$user->id = $data;
+$user->company_name = $data;
+$user->password = $data2;
 $fetchedCompany = $user->read();
-echo ($fetchedCompany);
-
+    echo ($fetchedCompany);
 ?>
