@@ -20,25 +20,47 @@ class User {
 
     // read users with matching company_name and password
     public function read() {
-        $query = "SELECT * FROM " . $this->table_name1 .
-        " WHERE company_name LIKE :company_name AND password = :password";
-        $stmt = $this->conn->prepare($query);
-        $stmt->execute(
+        try {
+            // if(isset($_POST['company_name']) && isset($_POST['password'])) {
+                // $company_name = $_POST['company_name'];
+                // $password = $_POST['password'];
+            
+            $query = "SELECT * FROM " . $this->table_name1 .
+            " WHERE company_name LIKE :company_name AND password = :password";
+            $stmt = $this->conn->prepare($query);
+            if($stmt->execute(
             [
                 ":company_name" => $this->company_name,
                 ":password" => $this->password
             ]
-        );
-    
-        $listCompany = [];
-        while($row = $stmt->fetch(PDO::FETCH_OBJ)) {
-            array_push($listCompany, [
-                "id" => $row->id,
-                "company_name" => $row->company_name,
-                // "password" => $row->password
-            ]);
+            )) { 
+                if($stmt->rowCount() > 0) {
+                    $listCompany = [];
+                    
+                    while($row = $stmt->fetch(PDO::FETCH_OBJ)) {
+                    array_push($listCompany, [
+                    "company_name" => $row->company_name
+                    ]);
+                    
+                    $status = "OK";
+                    }
+                    $returnval=$listCompany;
+                }
+            } else {
+            $status = "error 1";
         }
-        return json_encode($listCompany);
+        //print_r($status);
+       // $returnval = true;
+
+        if($status != "OK") {
+            $returnval = array("error");
+        }
+        
+    } catch(PDOException $e) {
+        print_r($e);
+    }
+    
+    return json_encode($returnval);
     }
 
     // public function add_session() {
