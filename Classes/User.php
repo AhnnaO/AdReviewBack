@@ -53,7 +53,7 @@ class User {
        // $returnval = true;
 
         if($status != "OK") {
-            $returnval = array("error");
+            $returnval = array("Oops! Please enter a correct company name or password!");
         }
         
     } catch(PDOException $e) {
