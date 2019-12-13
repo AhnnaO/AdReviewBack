@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 class User {
 
@@ -35,6 +36,7 @@ class User {
             ]
             )) { 
                 if($stmt->rowCount() > 0) {
+                    // set($_SESSION['listCompany']);
                     $listCompany = [];
                     
                     while($row = $stmt->fetch(PDO::FETCH_OBJ)) {
