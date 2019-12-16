@@ -18,4 +18,6 @@ $user->company_name = $data;
 $user->password = $data2;
 $fetchedCompany = $user->read();
     echo ($fetchedCompany);
+
+    
 ?>
