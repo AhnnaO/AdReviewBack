@@ -2,9 +2,12 @@
 
 <?php
 
-$origin = "./";
-$clientList = scandir($origin);
+$clients = "./";
+$clientList = scandir($clients);
 print_r($clientList);
+
+
+
 
 
 
