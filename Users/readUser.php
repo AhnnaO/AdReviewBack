@@ -13,9 +13,11 @@ $database = new Database();
 $db = $database->getConnection();
 $data = $_GET['company_name'];
 $data2 = $_GET['password'];
+$data3 = $_GET['admin'];
 $user =  new User($db);
 $user->company_name = $data;
 $user->password = $data2;
+$user->admin = $data3;
 $fetchedCompany = $user->read();
     echo ($fetchedCompany);
 

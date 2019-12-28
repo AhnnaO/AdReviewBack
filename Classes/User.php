@@ -22,9 +22,7 @@ class User {
     // read users with matching company_name and password
     public function read() {
         try {
-            // if(isset($_POST['company_name']) && isset($_POST['password'])) {
-                // $company_name = $_POST['company_name'];
-                // $password = $_POST['password'];
+
             
             $query = "SELECT * FROM " . $this->table_name1 .
             " WHERE company_name LIKE :company_name AND password = :password";
@@ -36,7 +34,7 @@ class User {
             ]
             )) { 
                 if($stmt->rowCount() > 0) {
-                    // set($_SESSION['listCompany']);
+        
                     $listCompany = [];
                     
                     while($row = $stmt->fetch(PDO::FETCH_OBJ)) {
@@ -51,8 +49,6 @@ class User {
             } else {
             $status = "error 1";
         }
-        //print_r($status);
-       // $returnval = true;
 
         if($status != "OK") {
             $returnval = array("Oops! Please enter a correct company name or password!");
@@ -65,18 +61,20 @@ class User {
     return json_encode($returnval);
     }
 
-    // public function add_session() {
-    //     $_SESSION["company_name"] = $this->find_user()["company_name"];
-    //     $_SESSION["password"] = $this->find_user()["password"];
-    //     if($this->find_user()["admin"] == true ){
-    //         $_SESSION["user"] = "admin";
-    //     } else{
-    //         $_SESSION["user"] = "standard";
-    //     }
-    // }
+
+
+    public function add_session() {
+        $_SESSION["company_name"] = $this->read()["company_name"];
+        $_SESSION["password"] = $this->read()["password"];
+        if($this->read()["admin"] == true ){
+            $_SESSION["user"] = "admin";
+        } else{
+            $_SESSION["user"] = "standard";
+        }
+    }
 
     // create users
-    function create() {
+    public function create() {
         try {
             $query = "INSERT INTO "
              . $this->table_name1 . 
