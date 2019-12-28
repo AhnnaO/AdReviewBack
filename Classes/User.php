@@ -19,6 +19,12 @@ class User {
         $this->conn = $db;
     }
 
+    public function readAll() {
+        $query = "SELECT * FROM " . $this->table_name1;
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+    }
+    
     // read users with matching company_name and password
     public function read() {
         try {
@@ -39,7 +45,8 @@ class User {
                     
                     while($row = $stmt->fetch(PDO::FETCH_OBJ)) {
                     array_push($listCompany, [
-                    "company_name" => $row->company_name
+                    "company_name" => $row->company_name,
+                    "id" => $row->id
                     ]);
                     
                     $status = "OK";
