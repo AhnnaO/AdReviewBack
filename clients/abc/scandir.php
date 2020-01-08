@@ -1,8 +1,8 @@
 <?php
 /*
 $_POST[]
-$path = $_GET["client"]
-$path = $_GET["path"]
+$client = $_GET["client"]
+
 $campaign = $_GET["campaign"]
 $adtype = $_GET["adtype"]
 
