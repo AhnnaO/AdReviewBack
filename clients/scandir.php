@@ -3,10 +3,10 @@
 $client = $_GET["client"];
 $campaign = $_GET["campaign"];
 $adtype = $_GET["adtype"];
+$version = $_GET["version"];
 
-$path = "./".$client."/".$campaign."/".$adtype;
+$path = "./".$client."/".$campaign."/".$adtype."/".$version;
 $scanned_directory = array_diff(scandir($path), array('..', '.', 'scandir.php', '.DS_Store'));
-//print_r(json_encode($scanned_directory));
 
 $returnArray=array();
 
