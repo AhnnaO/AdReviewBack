@@ -11,7 +11,6 @@ class User {
     public $id;
     public $company_name;
     public $password;
-
     public $errors = [];
 
     // pdo connection
@@ -19,6 +18,7 @@ class User {
         $this->conn = $db;
     }
 
+    // Unused function that available for use later by admin: returns everything from database with out matching company name to password
     public function readAll() {
         $query = "SELECT * FROM " . $this->table_name1;
         $stmt = $this->conn->prepare($query);
@@ -28,8 +28,6 @@ class User {
     // read users with matching company_name and password
     public function read() {
         try {
-
-            
             $query = "SELECT * FROM " . $this->table_name1 .
             " WHERE company_name LIKE :company_name AND password = :password";
             $stmt = $this->conn->prepare($query);
@@ -39,16 +37,14 @@ class User {
                 ":password" => $this->password
             ]
             )) { 
-                if($stmt->rowCount() > 0) {
-        
-                    $listCompany = [];
-                    
+                if($stmt->rowCount() > 0) {        
+                    $listCompany = [];                    
                     while($row = $stmt->fetch(PDO::FETCH_OBJ)) {
                     array_push($listCompany, [
-                    "company_name" => $row->company_name,
-                    "id" => $row->id
-                    ]);
-                    
+                        "company_name" => $row->company_name,
+                        "id" => $row->id,
+                        "admin" => $row->admin
+                    ]);                    
                     $status = "OK";
                     }
                     $returnval=$listCompany;
@@ -56,31 +52,27 @@ class User {
             } else {
             $status = "error 1";
         }
-
         if($status != "OK") {
             $returnval = array("Oops! Please enter a correct company name or password!");
-        }
-        
+        }    
     } catch(PDOException $e) {
         print_r($e);
     }
-    
     return json_encode($returnval);
     }
 
+    // // Set session
+    // public function add_session() {
+    //     $_SESSION["company_name"] = $this->read()["company_name"];
+    //     $_SESSION["password"] = $this->read()["password"];
+    //     if($this->read()["admin"] == true ){
+    //         $_SESSION["user"] = "admin";
+    //     } else{
+    //         $_SESSION["user"] = "standard";
+    //     }
+    // }
 
-
-    public function add_session() {
-        $_SESSION["company_name"] = $this->read()["company_name"];
-        $_SESSION["password"] = $this->read()["password"];
-        if($this->read()["admin"] == true ){
-            $_SESSION["user"] = "admin";
-        } else{
-            $_SESSION["user"] = "standard";
-        }
-    }
-
-    // create users
+    // Unused function but available for Admin use later: create users
     public function create() {
         try {
             $query = "INSERT INTO "
@@ -116,7 +108,7 @@ class User {
         }
     }
 
-    // update user
+    // Unused function but available for Admin use later: update user
     function update() {
         try {
             $query = "UPDATE "
@@ -150,7 +142,8 @@ class User {
             print_r($e);
         }
     }
-    
+
+    // Unused function but available for use in Admin in the future: delete user
     function delete() {
         try {
             $query = "DELETE FROM "
