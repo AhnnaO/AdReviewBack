@@ -1,4 +1,5 @@
 <?php
+session_start();
 // required headers
 header("Access-Control-Allow-Origin: http://localhost/AdReviewBack/");
 header("Content-Type: application/json; charset=UTF-8");
@@ -20,6 +21,5 @@ $user->password = $data2;
 $user->admin = $data3;
 $fetchedCompany = $user->read();
     echo ($fetchedCompany);
-
-    
+       
 ?>

@@ -1,5 +1,7 @@
 <?php
 // required headers
+
+// This file will not be used until Isobar moves forward with the project
 header("Access-Control-Allow-Origin: http://localhost/ad-review/");
 header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");

@@ -1,4 +1,7 @@
 <?php
+session_start();
+
+// This file will not be used until Isobar moves forward with the project
 // required headers
 header("Access-Control-Allow-Origin: http://localhost/AdReviewBack/");
 header("Content-Type: application/json; charset=UTF-8");
