@@ -19,16 +19,15 @@ foreach($scanned_directory as $key=>$value){
     $returnArray[$value] = $value;
 }
 echo json_encode($returnArray);
-}
+} else {
+    $path = "./".$client."/".$campaign."/".$adtype."/".$version;
+    $scanned_directory = array_diff(scandir($path), array('..', '.', 'scandir.php', '.DS_Store'));
 
-$path = "./".$client."/".$campaign."/".$adtype."/".$version;
-$scanned_directory = array_diff(scandir($path), array('..', '.', 'scandir.php', '.DS_Store'));
+    $returnArray=array();
 
-$returnArray=array();
-
-foreach($scanned_directory as $key=>$value){
-    $returnArray[$value] = $value;
-}
+    foreach($scanned_directory as $key=>$value) {
+        $returnArray[$value] = $value;
+    }
 echo json_encode($returnArray);
-
+}
 ?>

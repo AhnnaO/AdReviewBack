@@ -62,15 +62,15 @@ class User {
     }
 
     // // Set session
-    // public function add_session() {
-    //     $_SESSION["company_name"] = $this->read()["company_name"];
-    //     $_SESSION["password"] = $this->read()["password"];
-    //     if($this->read()["admin"] == true ){
-    //         $_SESSION["user"] = "admin";
-    //     } else{
-    //         $_SESSION["user"] = "standard";
-    //     }
-    // }
+    public function add_session() {
+        $_SESSION["company_name"] = $this->read()["company_name"];
+        $_SESSION["password"] = $this->read()["password"];
+        if($this->read()["admin"] == true ){
+            $_SESSION["user"] = "admin";
+        } else{
+            $_SESSION["user"] = "standard";
+        }
+    }
 
     // Unused function but available for Admin use later: create users
     public function create() {
