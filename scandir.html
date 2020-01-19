@@ -1,0 +1,34 @@
+<html>
+<head>
+<title>Scandir</title>
+</head>
+<body>
+<ul> 
+<li>
+<?php
+
+$myDir = '/Documents';
+
+function getDocs($myDir, &&$results = array()) {
+    $myFiles = scandir($myDir);
+    foreach($myFiles as $key => $value){
+        $path = realpath($myDir.DIRECTORY_SEPARATOR.$value);
+        if(!is_dir($path)) {
+            $results[] = $path;
+        } else if($value != "." && $value != "..") {
+            getDocs($path, $results[$path]);
+            $results[] = $path;
+        }
+    }
+    return $results;
+}
+
+
+
+var_dump(getDocs($myFiles));
+
+?>
+</li>
+</ul>
+</body>
+</html>
